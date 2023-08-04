@@ -1,6 +1,6 @@
 # QuickLingoYouTube - Empowering the Blind, Engaging the Deaf, and Saving Time
 
-QuickLingoYouTube is live and accessible at: [https://quick-lingo-youtube.streamlit.app/](https://quick-lingo-youtube.streamlit.app/)
+QuickLingoYouTube is live and accessible at: [https://quick-lingo-youtube.streamlit.app/](https://quicklingoyoutube.streamlit.app/)
 
 An AI-powered web app facilitating global lingual YouTube content access with bf language translation, summarization and inclusive features for the visually and hearing-impaired
 
