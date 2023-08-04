@@ -5,12 +5,6 @@ QuickLingoYouTube is live and accessible at: [https://quick-lingo-youtube.stream
 An AI-powered web app facilitating global lingual YouTube content access with bf language translation, summarization and inclusive features for the visually and hearing-impaired
 
 
-![Screenshot (45)](https://github.com/Shakthi-2406/Quick-Lingo-YouTube/assets/84411432/9ebb4357-ebf7-46bc-9a67-5df89912a870)
-
-The demo of QuickLingoYouTube can be accessed [here](https://drive.google.com/file/d/1CeSuEDF8GPcxq0NO4ywgyeVePwWlr7Bo/view?usp=sharing).
-
-
-
 ## Key Features:
 
 1. **Summarization:** QuickLingoYouTube provides the ability to summarize the content of YouTube videos to a desired length, enabling users to get the key information efficiently.
