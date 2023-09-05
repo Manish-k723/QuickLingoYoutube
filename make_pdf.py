@@ -44,7 +44,7 @@ class PDF(FPDF):
         for _ in range(2):
             self.ln()
         self.set_font("helvetica", 'IU', size=10)
-        self.cell(100, 5, txt="Developed By Shakthi",link="https://www.linkedin.com/in/shakthi-s-a0b44a211/")
+        self.cell(100, 5, txt="Delivered By Manish",link="https://www.linkedin.com/in/manish-kumar-244a55202/")
 
 def make_pdf(title="", url="", text=""):
     pdf = PDF(orientation='P', unit="mm", format="letter")
