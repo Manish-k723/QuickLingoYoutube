@@ -9,18 +9,18 @@ from io import BytesIO
 from functools import lru_cache
 from make_pdf import make_pdf
 
-
 st.set_page_config(
     page_title="QuickLingoYouTube",
     page_icon="🚀"
 )
 
-st.write("<div style='display:flex; align-items: center;letter-spacing: 2px;margin-left:2px;'><h1>QuickLingoYouTube</h1></div>", unsafe_allow_html=True)
-# st.write("<p style='font-size:small;margin-left:5px;margin-top:-5px;margin-bottom:-5px;'>From  <a style='text-decoration:none;' href='https://www.linkedin.com/in/manish-kumar-244a55202/'>Manish K</a></p>", unsafe_allow_html=True)
+st.write("<div style='display:flex; align-items: center;letter-spacing: 2px;margin-left:2px; color: rgb(255, 94, 0)'><h1><strong>QuickLingoYouTube</strong></h1></div>", unsafe_allow_html=True)
+# st.write("<p style='font-size:small;margin-left:5px;margin-top:-5px;margin-bottom:-5px;'>From  <a style='text-decoration:none;' href=''>Manish K</a></p>", unsafe_allow_html=True)
 st.write("<div><p style='letter-spacing:2px; font-weight:light; margin-left:5px;'>Empowering the Blind, Engaging the Deaf, and Time-Saving Translations</p></div>", unsafe_allow_html=True)
 langs_dict = GoogleTranslator().get_supported_languages(as_dict=True)
 
 talking_languages = gtts.lang.tts_langs()
+# print(talking_languages)
 
 def get_tts_lang_code(language):
     for code in talking_languages:
@@ -28,7 +28,7 @@ def get_tts_lang_code(language):
             return code
     return 'Not Supported'
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=12)
 def google_tts_talk(content, language):
     if get_tts_lang_code(language) == 'Not supported':
         return f"<p>Speech is not yet implemented for {language}</p>"
@@ -42,27 +42,28 @@ def google_tts_talk(content, language):
     return f'<audio autoplay="true" src="data:audio/wav;base64,{audio_base64}">'
 
 
-def streamlit_talk(audio_file_name):
-    audio_tag = f'<audio autoplay="true" src="{audio_file_name}">'
-    return audio_tag
-    st.markdown(audio_tag, unsafe_allow_html=True)
-    st.write("Audio successful")
+# def streamlit_talk(audio_file_name):
+#     audio_tag = f'<audio autoplay="true" src="{audio_file_name}">'
+#     return audio_tag
+#     st.markdown(audio_tag, unsafe_allow_html=True)
+#     st.write("Audio successful")
+    
 
-def talk_output(content, streamlit=False):
-    converter = pyttsx3.init()
-    converter.setProperty('rate', 150)
-    converter.setProperty('volume', 1)
-    if not streamlit:
-        for sentence in content.split('\n'):
-            converter.say(sentence)
-    else:
-        audio_file_name = "pyttsx3" + generate_timestamp() + '.mp3'
-        converter.save_to_file(content, audio_file_name)
-    converter.runAndWait()
-    if streamlit:
-        return streamlit_talk(audio_file_name)
+# def talk_output(content, streamlit=False): 
+#     converter = pyttsx3.init()
+#     converter.setProperty('rate')
+#     converter.setProperty('volume', 1.2)
+#     if not streamlit:
+#         for sentence in content.split('\n'):
+#             converter.say(sentence)
+#     else:
+#         audio_file_name = "pyttsx3" + generate_timestamp() + '.mp3'
+#         converter.save_to_file(content, audio_file_name)
+#     converter.runAndWait()
+#     if streamlit:
+#         return streamlit_talk(audio_file_name)
 
-def type_output(content, delay = 0.00005):
+def type_output(content, delay = 0.00005): #pass
     placeholder = st.empty()
     intermediate = ""
     for letter in content:
@@ -70,7 +71,7 @@ def type_output(content, delay = 0.00005):
         placeholder.write(intermediate+'|')
         # time.sleep(delay)
 
-def translate(content, targetLang):
+def translate(content, targetLang): #pass
     show_progress(f"Translating in {targetLang} for you....")
     if len(content) > 5000:
         st.warning("Text size exceeds 5000 characters. Truncating to meet the limit.")
@@ -79,18 +80,20 @@ def translate(content, targetLang):
     translated_text = GoogleTranslator(source='auto', target=targetLang).translate(content)
     return translated_text
 
-def show_progress(request, length = 502161): 
+def show_progress(request, length = 502161): #pass
     # talk_output(request) 
     my_bar = st.progress(0, text=request)
-    for percent_complete in range(20):
+    for percent_complete in range(50):
         # time.sleep(0.01)
-        my_bar.progress(percent_complete + 5, text=request)
+        my_bar.progress(percent_complete + 4, text=request)
 
 with st.form("my_form"):
     url = st.text_input(label="Enter the youtube video link", help="supported languages: English, Spanish, French, German, Italian, Portuguese, Dutch, Hindi, Japanese")
     st.write("Choose preferences")
     toSummarize = st.checkbox("Summarize the content to the desired length")
-    summarization_length = st.slider("Summarization Length: ", min_value=150, max_value=500, value=200)
+    summarization_length = st.slider("Summarization Length: ", min_value=150, max_value=500, value=250)
+    # print([label.capitalize() for label in langs_dict])
+    # voice = st.radio("Preferred gender voice: ", ["male", "female"])
     selected_language = st.selectbox("Choose the language you want to translate to", ["Original"] + [label.capitalize() for label in langs_dict])
     submitted = st.form_submit_button("Transcribe")
 
@@ -119,14 +122,16 @@ pdf_text = ""
 
 if selected_language != 'Original':
     translated_content = translate(summarized_content, selected_language)
-    translated_content.replace('. ', '\n')
-    st.write(selected_language + ": ")
-    type_output(translated_content)
-    # pdf_text += f"{selected_language}\n {translated_content}\n\n"
-    st.divider()
-    st.markdown(google_tts_talk(translated_content, selected_language), unsafe_allow_html=True)
+    # translated_content.replace('. ', '\n')
+    # st.write(selected_language + ": ")
+    # type_output(translated_content)
+    pdf_text += f"{selected_language}\n {translated_content}\n\n"
+    # st.markdown(google_tts_talk(translated_content, selected_language), unsafe_allow_html=True)
+    summarized_content = translated_content
 
+st.divider()
 summarized_content.replace('. ', '\n')
+st.write(selected_language + ": ")
 type_output(summarized_content)
 pdf_text += f"{summarized_content}"
 
@@ -138,7 +143,7 @@ download = st.download_button(
     mime="application/pdf",
 )
 
-st.markdown(google_tts_talk(summarized_content, "English"), unsafe_allow_html=True)
+st.markdown(google_tts_talk(summarized_content, selected_language), unsafe_allow_html=True)
 
 
 type_output("\nThank you for using", 0.3)
