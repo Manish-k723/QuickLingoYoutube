@@ -25,12 +25,13 @@ def summarize_huggingface(text, desired_output_length = 150):
 
 def get_minimum_size(url):
     video = pafy.new(url)
+    print(f"View Count: {video.viewcount}")
     audiostreams = video.audiostreams
     minimumsize = audiostreams[0]
     for i in audiostreams:
         if minimumsize.get_filesize() > i.get_filesize():
             minimumsize = i
-    print(minimumsize.get_filesize())
+    print(f"File Size = {minimumsize.get_filesize()}")
     return minimumsize  
 
 def get_audio(minimumsize):
@@ -42,10 +43,10 @@ def get_audio(minimumsize):
     return filename, contentname   
 
 def transcribe(filename):
-    aai.settings.api_key = "a7723b7c7765451a9ad0d36e27a13ffe"
+    aai.settings.api_key = "74d3dcf701a844719cc87baf307ed12d" #other-API: a7723b7c7765451a9ad0d36e27a13ffe
     transcriber = aai.Transcriber()
-    transcript = transcriber.transcribe(filename)
-    print(transcript.text)
+    transcript = transcriber.transcribe(filename) # It generates text from the audio
+    # print(transcript.text)
     return transcript.text
 
 def talk_output(content):
