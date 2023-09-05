@@ -23,6 +23,8 @@ An AI-powered web app facilitating global lingual YouTube content access with bf
 
 8. **PDF Transcript Download:** Users can now download the transcripted content of the video as a PDF, allowing them to save, share, and access the content offline.
 
+![image](https://github.com/Manish-k723/QuickLingoYoutube/assets/109733755/98ae0eb6-0be9-428e-a6ef-0152c9095943)
+
 ## How to Use:
 
 1. Paste the YouTube video link in the provided input field.
